@@ -36,12 +36,15 @@
 </template>
 
 <script>
+import { auth, setAuthInHeader } from "../api";
+
 export default {
   data() {
     return {
       email: "",
       password: "",
-      error: ""
+      error: "",
+      rPath: ""
     };
   },
   computed: {
@@ -49,9 +52,22 @@ export default {
       return !this.email || !this.password;
     }
   },
+  created() {
+    this.rPath = this.$route.query.rPath || "/";
+  },
   methods: {
     onSubmit() {
-      console.log(this.email, this.password);
+      auth
+        .login(this.email, this.password)
+        .then(data => {
+          localStorage.setItem("token", data.accessToken);
+          setAuthInHeader(data.accessToken);
+          this.$router.push(this.rPath);
+        })
+        .catch(err => {
+          console.dir(err);
+          this.error = err.data.error;
+        });
     }
   }
 };
