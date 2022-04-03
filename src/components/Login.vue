@@ -1,31 +1,60 @@
 <template>
   <div class="login">
     <h2>Log in to Trello</h2>
-    <form>
+    <form @submit.prevent="onSubmit">
       <div>
         <label for="email">Email</label>
         <input
           type="text"
           class="form-control"
           name="email"
+          v-model="email"
           autofocus
           placeholder="e.g., test@test.com"
         />
       </div>
       <div>
         <label for="password">Password</label>
-        <input type="password" class="form-control" placeholder="123123" />
+        <input
+          type="password"
+          class="form-control"
+          v-model="password"
+          placeholder="123123"
+        />
       </div>
-      <button class="btn" type="submit">
+      <button
+        class="btn"
+        :class="{ 'btn-success': !invalidForm }"
+        type="submit"
+        :disabled="invalidForm"
+      >
         Log In
       </button>
     </form>
-    <p class="error"></p>
+    <p class="error" v-if="error">{{ error }}</p>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      email: "",
+      password: "",
+      error: ""
+    };
+  },
+  computed: {
+    invalidForm() {
+      return !this.email || !this.password;
+    }
+  },
+  methods: {
+    onSubmit() {
+      console.log(this.email, this.password);
+    }
+  }
+};
 </script>
 
 <style>
