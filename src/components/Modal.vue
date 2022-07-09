@@ -1,7 +1,7 @@
 <template>
   <transition name="modal">
     <div class="modal-mask">
-      <div class="modal-wrapper">
+      <div class="modal-wrapper" @click.self="SET_IS_ADD_BOARD(false)">
         <div class="modal-container">
           <div class="modal-header">
             <slot name="header"> default header </slot>
@@ -26,7 +26,12 @@
 </template>
 
 <script>
-export default {};
+import { mapMutations } from "vuex";
+export default {
+  methods: {
+    ...mapMutations(["SET_IS_ADD_BOARD"])
+  }
+};
 </script>
 
 <style>
