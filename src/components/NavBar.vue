@@ -15,7 +15,7 @@ import { mapGetters, mapMutations } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters([...mapGetters(["isAuth"])])
+    ...mapGetters(["isAuth"])
   },
   methods: {
     ...mapMutations(["LOGOUT"]),
