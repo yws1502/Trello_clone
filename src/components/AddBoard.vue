@@ -62,9 +62,9 @@ export default {
     ...mapActions(["ADD_BOARD", "FETCH_BOARDS"]),
     addBoard() {
       this.SET_IS_ADD_BOARD(false);
-      this.ADD_BOARD({ title: this.inputValue }).then(() => {
-        this.FETCH_BOARDS();
-      });
+      this.ADD_BOARD({ title: this.inputValue }).then(({ id }) =>
+        this.$router.push(`/b/${id}`)
+      );
     }
   }
 };
