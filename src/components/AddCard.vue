@@ -18,7 +18,10 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
+  props: ["listId"],
   data() {
     return {
       inputTitle: ""
@@ -34,8 +37,14 @@ export default {
     this.setupClickOutside(this.$el);
   },
   methods: {
+    ...mapActions(["ADD_CARD"]),
     onSubmit() {
-      console.log("submit");
+      if (this.invalidInput) return;
+      const payload = {
+        title: this.inputTitle,
+        listId: this.listId
+      };
+      this.ADD_CARD(payload).finally(() => (this.inputTitle = ""));
     },
     setupClickOutside(el) {
       document.querySelector("body").addEventListener("click", event => {

@@ -1,4 +1,5 @@
-import { board, auth } from "../api";
+import { board, auth, card } from "../api";
+import state from "./state";
 
 const actions = {
   LOGIN({ commit }, { email, password }) {
@@ -18,6 +19,12 @@ const actions = {
     return board.fetch(id).then((data) => {
       commit("SET_BOARD", data.item)
     })
+  },
+  ADD_CARD(ctx, {title, listId, pos}) {
+    return card.create({title, listId, pos})
+      .then(() => {
+        ctx.dispatch("FETCH_BOARD", { id: state.board.id});
+      })
   }
 };
 

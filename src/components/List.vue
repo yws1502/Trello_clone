@@ -5,7 +5,7 @@
     </div>
 
     <div v-if="isAddCard">
-      <AddCard @close="isAddCard = false" />
+      <AddCard @close="isAddCard = false" :list-id="data.id" />
     </div>
     <div v-else>
       <a href="" class="add-card-btn" @click.prevent.stop="isAddCard = true">
